@@ -26,13 +26,11 @@ var getValuesUrl = function () {
 	}
 	stream.stringGetValues = '?' + string[1];
 	stringGetValues = stream.stringGetValues;
-	console.log("stringGetValues", stringGetValues);
 	return;
 };
 var getPathName = function () {
 	var url = window.location.pathname;
 	var urlParts = url.split('/');
-	//console.log(urlParts);
 	var path = [];
 	var nbPath = urlParts.length;
 	for (var u = 0; u < nbPath; u++) {
@@ -117,7 +115,6 @@ var constructDomElement = function (type, className, options) {
 				elem.setAttribute('title', str);
 			} else {
 				elem.setAttribute('title', title);
-				//console.log('Warning! "' + title + '" is not translated!');
 			}
 		} else {
 			elem.setAttribute('title', title);
@@ -147,7 +144,6 @@ var constructDomElement = function (type, className, options) {
 	}
 	if (extraStyles) {
 		for (indStyle in extraStyles) {
-			console.log(indStyle, extraStyles[indStyle]);
 			elem.style[indStyle] = extraStyles[indStyle];
 		}
 	}
@@ -202,7 +198,6 @@ var addActivityLinkEvent = function (dom, activityId, options) {
 	dom.addEventListener('click', function (evt) {
 		evt.stopPropagation();
 		dom.href = 'javascript:';
-		console.log(activityId);
 		stream.activityManager.changeActivity(activityId);
 		if (options) {
 			if (options.extraRender) {

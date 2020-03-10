@@ -15,11 +15,9 @@ class builder{
         this.body = currentBody.container;
 		console.log(this.shapeActivity);
 		//if(!this.activityBodyList[activityId]){
-
         if(!this.shapeActivity[activityId]){
             this.shapeActivity[activityId] = this.structure.getActivityStructure(activityId);
         }
-
         for(let i in this.shapeActivity[activityId].shapes){
             if(!this.shapeActivity[activityId].shapes[i].name){
                 this.shapeActivity[activityId].shapes[i].name = i;
@@ -33,15 +31,13 @@ class builder{
 			console.log('some parameters not provided.', shape);
 			return false;
         }
-        /*if(!this.body){
-
-        }*/
+        /*if(!this.body){}*/
         console.log(shape.type[0].toUpperCase() + shape.type.slice(1));
-
-        if(!this['construct'+shape.type[0].toUpperCase() + shape.type.slice(1)]){
-            console.log('type undefined :'+ shape.type);
-        }
         let className = shape.type + shape.name;
+        if(!this['construct'+shape.type[0].toUpperCase() + shape.type.slice(1)]){
+            console.warn('shape : construct'+shape.type[0].toUpperCase() + shape.type.slice(1)+ ' not exist');
+            return false;
+        }
         let container =  constructDomElement('div',className,{parent:this.body})
         this['construct'+shape.type[0].toUpperCase() + shape.type.slice(1)](shape,container);
     }
@@ -63,8 +59,4 @@ class builder{
 
         console.log(listImages);
     }
-
-
-
-
 }
