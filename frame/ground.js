@@ -209,3 +209,9 @@ var addActivityLinkEvent = function (dom, activityId, options) {
 		}, 0);
 	});
 };
+/*
+var changeHref = function(activity,get){
+	//var urlPath = 'https://'+activity+get;
+	//window.history.pushState(null,"", urlPath);
+}
+*/

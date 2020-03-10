@@ -64,7 +64,6 @@ class activityManager {
 		structure.container = constructDomElement('div', 'displayNone activityBody activityBody' + activityId, { parent: this.body });
 		return structure;
 	}
-
 	/**
 	 * function for construct topMenu
 	 * @param {string} activityId 
