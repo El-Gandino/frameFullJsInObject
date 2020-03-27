@@ -1,19 +1,12 @@
 "use strict"
 class activityManager {
 	constructor(activityId = 'home') {
-		if (typeof (activityId) != 'string') {
-			activityId = 'home'
-		}
 		if (typeof (this.structure) == 'undefined') {
 			this.setStructure();
 		}
-
-
 		if (!this.ActivityManager) {
 			this.activityManager = this;
 		}
-		this.currentActivity = activityId;
-		this.changeActivity(activityId);
 		return this;
 
 	}
@@ -130,6 +123,8 @@ class activityManager {
 			this.activityBodyList[i].container.classList.add('displayNone');
 		}
 		//this.activityBodyList[this.currentActivity].container.classList.remove('displayNone');
+		/**/
+		window.history.pushState({},"",this.currentActivity);
 
 	}
 }

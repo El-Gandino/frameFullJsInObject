@@ -38,6 +38,7 @@ class builder{
             console.warn('shape : construct'+shape.type[0].toUpperCase() + shape.type.slice(1)+ ' not exist');
             return false;
         }
+        /*parent*/
         let container =  constructDomElement('div',className,{parent:this.body})
         this['construct'+shape.type[0].toUpperCase() + shape.type.slice(1)](shape,container);
     }
@@ -58,5 +59,8 @@ class builder{
         listImages[0].container.classList.remove('displayNone');
 
         console.log(listImages);
+    }
+    constructForm(shape,container){
+        console.log(shape,container);
     }
 }
