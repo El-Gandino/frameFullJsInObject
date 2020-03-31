@@ -59,6 +59,14 @@ class structure {
             shapes:{
                 form:{
                     type:'form',
+                },
+                name:{
+                    type:'input',
+                    options:{
+                        include:'form',
+                        type:'text',
+                        
+                    }
                 }
             }
         },

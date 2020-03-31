@@ -8,7 +8,6 @@ class activityManager {
 			this.activityManager = this;
 		}
 		return this;
-
 	}
 	setStructure() {
 		this.structure = new structure;
