@@ -106,3 +106,33 @@
 .displayNone{
     display:none!important;
 }
+
+/**/
+.formform{
+    max-width: 450px;
+    margin: auto;
+    margin-top: 30px;
+    text-align: center;
+}
+.inputname,.inputsurname,.inputemail,.inputpassword,.submitsubmit{
+    margin-bottom: 20px;
+    width: 100%;
+}
+.input{
+    width: 100%;
+    height: 50px;
+    padding: 5px;
+    position: relative;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fbfbfb;
+}
+.buttonsubmit {
+    width: 172px;
+    height: 20px;
+    background-color: blue;
+}
+.borderRed{
+    border-color:red;
+}

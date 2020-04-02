@@ -1,4 +1,4 @@
 RewriteEngine On # Activer le module Rewrite
 RewriteRule ^home/?$ index.html [NC,L]
 RewriteRule ^signup/?$ index.html [NC,L]
-
+RewriteRule ^login/?$ index.html [NC,L]

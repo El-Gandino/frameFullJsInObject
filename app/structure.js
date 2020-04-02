@@ -63,16 +63,89 @@ class structure {
                 name:{
                     type:'input',
                     options:{
+                        queryLabel:'name',
                         include:'form',
                         type:'text',
-                        
+                        placeholder:'Nom',
+                        notNull:true
+                    }
+                },
+                surname:{
+                    type:'input',
+                    options:{
+                        queryLabel:'surname',
+                        include:'form',
+                        type:'text',
+                        placeholder:'Prénom',
+                        notNull:true
+                    }
+                },
+                email:{
+                    type:'input',
+                    options:{
+                        queryLabel:'email',
+                        include:'form',
+                        type:'email',
+                        placeholder:'email',
+                        notNull:true
+                    }
+                },
+                password:{
+                    type:'input',
+                    options:{
+                        include:'form',
+                        type:'password',
+                        placeholder:'mot de passe',
+                        queryLabel:'password',
+                        notNull:true
+                    }
+                },
+                submit:{
+                    type:'submit',
+                    options:{
+                        queryLabel:'',
+                        include:'form',
+                        listInput:['name','surname','email','password'],
+                        action:'/user/put?'
+                            
                     }
                 }
             }
         },
         login:{
             shapes:{
-
+                form:{
+                    type:'form',
+                },
+                email:{
+                    type:'input',
+                    options:{
+                        queryLabel:'login',
+                        include:'form',
+                        type:'email',
+                        placeholder:'email',
+                        notNull:true
+                    }
+                },
+                password:{
+                    type:'input',
+                    options:{
+                        include:'form',
+                        type:'password',
+                        placeholder:'mot de passe',
+                        queryLabel:'password',
+                        notNull:true
+                    }
+                },
+                submit:{
+                    type:'submit',
+                    options:{
+                        queryLabel:'',
+                        include:'form',
+                        listInput:['email','password'],
+                        action:'/user/auth?'
+                    }
+                }
             }
         }
     }
