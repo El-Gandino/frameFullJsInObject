@@ -10,33 +10,7 @@ class structure {
                 signup:{activity: 'signup', text: 'Inscription', href: '/signup/',classSuffix:'signup'},
                 login:{activity: 'login', text: 'Connexion', href: '/login/',classSuffix:'login'},
             },
-            highlightCurrentActivity: true,
-            language: ['fr', 'en', 'de'],
-            search:{
-                searchengine:{
-                    target:"publicCardCourse",
-                    type:["name","nameCreator"]
-                },
-                discover:{
-                    redirect:'searchengine'
-                }
-            },
         },
-        /*
-        footer:{
-            infos:{
-                name: 'WorkStreams',
-                street: 'Rue Jacques Dalphin 14',
-                zip: 1227,
-                city: 'Carouge',
-                canton: 'Genève',
-                country: 'switzerland',
-                phone: '+41 22 301 20 14',
-                email: 'contact@workstreams.ch',
-            },
-            language: ['fr', 'en', 'de']
-        },
-         */
     };
     activity = {
         home:{
@@ -106,8 +80,8 @@ class structure {
                         queryLabel:'',
                         include:'form',
                         listInput:['name','surname','email','password'],
-                        action:'/user/put?'
-                            
+                        action:'/user/put?',
+                        endpoint:'user'   
                     }
                 }
             }
@@ -143,7 +117,8 @@ class structure {
                         queryLabel:'',
                         include:'form',
                         listInput:['email','password'],
-                        action:'/user/auth?'
+                        action:'/user/auth?',
+                        endpoint:'user'
                     }
                 }
             }
@@ -154,5 +129,7 @@ class structure {
         return this.activity[activityId];
 
     }
-
+    destroy(){
+		delete(this);
+	}
 }

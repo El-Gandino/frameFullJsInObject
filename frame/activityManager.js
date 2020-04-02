@@ -10,7 +10,13 @@ class activityManager {
 		return this;
 	}
 	setStructure() {
-		this.structure = new structure;
+		if(!stream.user){
+			this.structure = new structure;
+			return;
+		}
+		this.structure = new authstructure;
+
+		
 	}
 	changeActivity(activityId) {
 		console.log('changeActivity',activityId);
@@ -125,5 +131,14 @@ class activityManager {
 		/**/
 		window.history.pushState({},"",this.currentActivity);
 
+	}
+
+	clearBody(){
+		for(let i in this.activityBodyList){
+			this.activityBodyList[i].container.remove();
+			delete(this.activityBodyList[i]);
+		}
+		this.topMenu.container.dom.remove();
+		delete(this.topMenu);
 	}
 }

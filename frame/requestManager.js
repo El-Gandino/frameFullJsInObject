@@ -9,21 +9,14 @@ class requestManager{
 			this.instance = new requestManager();
 		}
 		return this.instance;
-    }
-    sendQuery(queryArray,options){
+	}
+	sendQuery(queryArray,options){
 		if(typeof(options) == 'undefined'){
 			let options = {};
 		}
 		let login = 'nobody';
 		let key = '';
 		let query = {};
-		let requestObject = {
-			action:'',
-			data:{
-				login: 'nobody',
-				queryArray:{},
-			}
-		};
 		let rootQuery= 'http://apijsp.test';
 		
 		if(options.action){
@@ -32,14 +25,6 @@ class requestManager{
 		for(let i in queryArray){
 			query[queryArray[i].label] = queryArray[i].value;
 		}
-		
-		
-		//let path = requestObject.action;
-		if(options.typeQuery){
-			
-			return;
-		
-		}
 		let fullRequest = {
 			key: key,
 			login: login,
@@ -47,15 +32,33 @@ class requestManager{
 			query: query,
 			parameters: {
 				status: 'pending',
-				requestId: generateUuId(),
-				//activityId: activityId
+				requestId: generateUuId()
 			}
+		};
+		if(options.endpoint){
+			fullRequest.parameters.enpoint = options.endpoint;
 		}
-		console.log(true);
+		console.log(fullRequest,options);
 		onmessage({data:fullRequest});
 
 	}
 	setResponce(responce){
 		console.log(responce);
+		if(responce.parameters){
+			if(responce.parameters.enpoint && responce.parameters.enpoint == 'user'){
+				if(!stream.user && !this.script){
+					this.script = constructDomElement('script','',{parent:document.head,extraAttributes:{type:'text/javascript',src:'frame/user.js'}});
+				}
+				if(responce.result.dataSet.status == true){
+					setTimeout(function() {
+						stream.user = user.getInstance(responce.result.dataSet.query.token);
+					  }, 200);
+					  console.log(responce.result.dataSet.query.token);
+					
+				}	
+				return;
+			}
+		}
+	
 	}
 }

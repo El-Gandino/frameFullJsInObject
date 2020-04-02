@@ -11,11 +11,14 @@
 		xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 		xhr.send('login=' + encodeURIComponent(settings.login) + '&key=' + encodeURIComponent(settings.key) + '&signature=1&query=' + encodeURIComponent(JSON.stringify(settings.query)));        
         xhr.onreadystatechange = function () {
-            if ( xhr.status == 200) {
-                let results = xhr.responseText;
-                let resultsObject = JSON.parse(results);
-                settings.parameters.status = "ok";
-                stream.requestManager.setResponce({result: resultsObject, parameters:settings.parameters});
+			console.log('onreadystatechange',xhr);
+			if (xhr.status == 200 && xhr.readyState == 4) {
+				if(xhr.responseText){
+					let results = xhr.responseText;
+                	let resultsObject = JSON.parse(results);
+                	settings.parameters.status = "ok";
+                	stream.requestManager.setResponce({result: resultsObject, parameters:settings.parameters});
+				}
 			}
 		}
 		xhr.onerror = function(error){

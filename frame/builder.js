@@ -141,9 +141,35 @@ class builder{
 					return false;
 				}
 				queryArray.push(currentValue);
-			}
-			stream.requestManager.sendQuery(queryArray,{action:shape.options.action})
-		})
+            }
+            let options = {action:shape.options.action};
+            console.log(shape.options.endpoint);
+            if(shape.options.endpoint){
+                options.endpoint = shape.options.endpoint;
+            }
+			stream.requestManager.sendQuery(queryArray,options);
+        })
+       
+        window.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                console.log(stream);
+                let shapesActivty = stream.builder.shapeActivity[stream.activityManager.currentActivity].shapes;
+                let queryArray = [];
+                for(let i in shape.options.listInput){
+                    let currentValue = shapesActivty[shape.options.listInput[i]].structure.getValue(shapesActivty[shape.options.listInput[i]]);
+                    if(currentValue == false){
+                        return false;
+                    }
+                    queryArray.push(currentValue);
+                }
+                let options = {action:shape.options.action};
+                console.log(shape.options.endpoint);
+                if(shape.options.endpoint){
+                    options.endpoint = shape.options.endpoint;
+                }
+                stream.requestManager.sendQuery(queryArray,options);
+            }
+        });
 		return{
 			dom:container,
 			button:buttonSubmit
