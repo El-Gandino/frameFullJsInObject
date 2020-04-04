@@ -14,15 +14,31 @@ class authstructure {
     activity = {
         home:{
             shapes:{
+                windowCreat:{
 
+                },
+				userTable:{
+					type:'div',
+					options:{
+						callBack:{
+							action:'/person/get',
+							query:{
+								parent:stream.user.token
+							}
+						}
+					}
+                },
+                callWindow :{
+                    type:'callBackWindow',
+                    options:{
+                        link:'windowCreat'
+                    }
+                }
             }
         },
     }
     getActivityStructure(activityId){
-        console.log(this.activity[activityId]);
         return this.activity[activityId];
 
 	}
-
-
 }

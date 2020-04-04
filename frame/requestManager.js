@@ -25,6 +25,10 @@ class requestManager{
 		for(let i in queryArray){
 			query[queryArray[i].label] = queryArray[i].value;
 		}
+		if(stream.user){
+			login = stream.user.email;
+			key = stream.user.token;
+		}
 		let fullRequest = {
 			key: key,
 			login: login,
@@ -51,10 +55,9 @@ class requestManager{
 				}
 				if(responce.result.dataSet.status == true){
 					setTimeout(function() {
-						stream.user = user.getInstance(responce.result.dataSet.query.token);
+						stream.user = user.getInstance(responce.result.dataSet.query.token,responce.result.dataSet.query.email
+							);
 					  }, 200);
-					  console.log(responce.result.dataSet.query.token);
-					
 				}	
 				return;
 			}

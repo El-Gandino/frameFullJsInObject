@@ -149,7 +149,6 @@ class builder{
             }
 			stream.requestManager.sendQuery(queryArray,options);
         })
-       
         window.addEventListener('keypress', function (e) {
             if (e.key === 'Enter') {
                 console.log(stream);
@@ -175,5 +174,18 @@ class builder{
 			button:buttonSubmit
 		}
 		
-	}
+    }
+    constructDiv(shape,container){
+        if(shape.options){
+            if(shape.options.callBack){
+                let options = {action:shape.options.callBack.action};
+                let query = shape.options.callBack.query;
+                stream.requestManager.sendQuery(query,options)
+            }
+        }
+        return{
+			dom:container,
+		}
+    }
+   
 }

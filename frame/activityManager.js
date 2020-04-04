@@ -132,7 +132,6 @@ class activityManager {
 		window.history.pushState({},"",this.currentActivity);
 
 	}
-
 	clearBody(){
 		for(let i in this.activityBodyList){
 			this.activityBodyList[i].container.remove();
