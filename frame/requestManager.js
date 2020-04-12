@@ -10,7 +10,7 @@ class requestManager{
 		}
 		return this.instance;
 	}
-	sendQuery(queryArray,options){
+	sendQuery(queryArray,options,shape){
 		if(typeof(options) == 'undefined'){
 			let options = {};
 		}
@@ -36,11 +36,15 @@ class requestManager{
 			query: query,
 			parameters: {
 				status: 'pending',
-				requestId: generateUuId()
+				requestId: generateUuId(),
+				action:  options.action
 			}
 		};
 		if(options.endpoint){
 			fullRequest.parameters.enpoint = options.endpoint;
+		}
+		if(shape){
+			fullRequest.parameters.shape = shape;
 		}
 		console.log(fullRequest,options);
 		onmessage({data:fullRequest});
@@ -48,6 +52,11 @@ class requestManager{
 	}
 	setResponce(responce){
 		console.log(responce);
+		let action = responce.parameters.action;
+		if(action.split('/')[2] == 'delete'){
+			let shapesActivty = stream.builder.shapeActivity[stream.activityManager.currentActivity].shapes;
+			stream.reloadContent(responce.parameters.shape)
+		}
 		if(responce.parameters){
 			if(responce.parameters.enpoint && responce.parameters.enpoint == 'user'){
 				if(!stream.user && !this.script){
@@ -61,7 +70,15 @@ class requestManager{
 				}	
 				return;
 			}
+			if(responce.parameters.shape){
+				let currentshape = responce.parameters.shape;
+				if(currentshape.options.callBack.responcetrue){
+					stream.adapter.rootConstruct(responce.result.dataSet.query,currentshape)
+				}
+			}
+	
 		}
+
 	
 	}
 }

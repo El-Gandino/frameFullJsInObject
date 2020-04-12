@@ -3,12 +3,13 @@ class structure {
         topMenu: {
             logo:{
                 icon: 'app/img/logos/logo_192.jpg',
-                text: 'test',
+                text: 'jsp-malley',
             },
             links: {
                 home:{activity: 'home', text: 'home',  href: ' /home/'},
                 signup:{activity: 'signup', text: 'Inscription', href: '/signup/',classSuffix:'signup'},
                 login:{activity: 'login', text: 'Connexion', href: '/login/',classSuffix:'login'},
+                chistof:{activity: 'login', text: 'chistof', href: '/login/',classSuffix:'login'},
             },
         },
     };

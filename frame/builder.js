@@ -180,12 +180,63 @@ class builder{
             if(shape.options.callBack){
                 let options = {action:shape.options.callBack.action};
                 let query = shape.options.callBack.query;
-                stream.requestManager.sendQuery(query,options)
+                stream.requestManager.sendQuery(query,options,shape)
             }
         }
         return{
-			dom:container,
+            dom:container,
+            
 		}
     }
-   
+    constructCallBackWindow(shape,container){
+		let options = {};
+		if(shape.options){
+			options = shape.options;
+		}
+		container.classList.add('displayNone');
+		let containerWindow = constructDomElement('div','windowContainer ', {parent:container});
+		let top = constructDomElement('div','windowTop ',{parent:containerWindow});
+		let title = constructDomElement('div','windowTitle ',{parent:top});
+		let close =  constructDomElement('div','windowClose ',{parent:top});
+		let body =constructDomElement('div','windowBody ',{parent:containerWindow});
+		if(options){
+			if(options.title){
+				title.innerText = options.title;
+			}
+		}
+		let closeFunc = function (){
+			container.classList.add('displayNone');
+		}
+		let showFunc = function (){
+			container.classList.remove('displayNone');
+		}
+		close.addEventListener('click',function(){
+			closeFunc();
+		});
+		return{
+			dom:body,
+			structure:{
+				window:containerWindow,
+				topWindow:top,
+				parent:container, 
+				body:body
+			},
+			event:{
+				show:showFunc,
+				close:closeFunc,
+			}
+		}
+	}
+	constructCallWindow(shape,container){
+		var target = shape.options.target;
+		let buton = constructDomElement('div','buttonCallBackWindow',{parent:container});
+		buton.innerText = shape.options.content;
+		let shapesActivty = this.shapeActivity[stream.activityManager.currentActivity].shapes;
+		buton.addEventListener('click',function(){shapesActivty[shape.options.taget].structure.event.show()});
+		return{
+			dom:container,
+			button:buton
+		}
+		
+	}
 }

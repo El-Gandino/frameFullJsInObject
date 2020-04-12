@@ -1,5 +1,8 @@
 "use strict"
 class activityManager {
+	/*
+	* creat singleton
+	*/
 	constructor(activityId = 'home') {
 		if (typeof (this.structure) == 'undefined') {
 			this.setStructure();

@@ -1,9 +1,5 @@
 "use strict"
 var stream = new Stream();
-if (typeof(extraData) !== 'undefined'
-	&& typeof(organizations) !== 'undefined') {
-	extraData.organizations = organizations;
-}
 getValuesUrl();
 stream.activityManager = new activityManager();
 var newActivityId = 'home';

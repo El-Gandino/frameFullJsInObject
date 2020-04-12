@@ -11,7 +11,7 @@ class user{
 			stream.activityManager.structure = new authstructure();
 			stream.builder.structure = new authstructure();
 			stream.activityManager.changeActivity();
-		}, 400);
+		}, 800);
 		document.cookie = JSON.stringify({'user':{'token': this.token ,'email': this.email }});
 	}
 	static getInstance(token,email){
