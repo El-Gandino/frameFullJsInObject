@@ -52,9 +52,11 @@ class requestManager{
 	}
 	setResponce(responce){
 		console.log(responce);
+		if(responce.dataSet.value == false){
+			
+		}
 		let action = responce.parameters.action;
 		if(action.split('/')[2] == 'delete'){
-			let shapesActivty = stream.builder.shapeActivity[stream.activityManager.currentActivity].shapes;
 			stream.reloadContent(responce.parameters.shape)
 		}
 		if(responce.parameters){

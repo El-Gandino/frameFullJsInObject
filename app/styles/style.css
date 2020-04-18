@@ -72,6 +72,61 @@
     height: 100%;
     width: 100%;
 }
+/*bubble*/
+.bubbleNotifyContainer {
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+    display: block;
+    z-index: 100;
+    background-color: rgba(105,105,105,0.7);
+    padding: 10px;
+    min-width: 300px;
+    border-radius: 5px;
+}
+.bubbleNotifyClose {
+    width: 25px;
+    height: 25px;
+    border-radius: 50% 50%;
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+	cursor: pointer;
+    transition: 0.2s;
+}
+.bubbleNotifyClose:hover{
+	transform: scale(1.1);
+}
+.bubbleNotifyClose::before{
+    background: white;
+    position: absolute;
+    display:block;
+    content:'';
+    width: 70%;
+    height: 6%;
+    top: 47%;
+    left: 15%;
+    transform: rotate(45deg);
+} 
+.bubbleNotifyClose::after{
+    background: white;
+    position: absolute;
+    display:block;
+    content:'';
+    width: 6%;
+    height: 70%;
+    left: 47%;
+    top: 15%;
+    transform: rotate(45deg);
+}
+.bubbleNotifyContent{
+    display: inline-block;
+    vertical-align: middle;
+    color: white;
+    width: calc(100% - 25px);
+}
+
+
 /*home*/
 .sliderslider{
     display: block;

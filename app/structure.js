@@ -9,7 +9,6 @@ class structure {
                 home:{activity: 'home', text: 'home',  href: ' /home/'},
                 signup:{activity: 'signup', text: 'Inscription', href: '/signup/',classSuffix:'signup'},
                 login:{activity: 'login', text: 'Connexion', href: '/login/',classSuffix:'login'},
-                chistof:{activity: 'login', text: 'chistof', href: '/login/',classSuffix:'login'},
             },
         },
     };
@@ -82,7 +81,7 @@ class structure {
                         include:'form',
                         listInput:['name','surname','email','password'],
                         action:'/user/put?',
-                        endpoint:'user'   
+                        endpoint:'user',
                     }
                 }
             }
@@ -119,7 +118,10 @@ class structure {
                         include:'form',
                         listInput:['email','password'],
                         action:'/user/auth?',
-                        endpoint:'user'
+                        endpoint:'user',
+                        error:{
+                            bubble:'msg'
+                        },
                     }
                 }
             }

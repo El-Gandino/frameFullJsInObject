@@ -4,6 +4,7 @@ class Stream {
         this.cacheParameters = {};
         this.requestManager = requestManager.getInstance();
         this.adapter = adapter.getInstance();
+        this.bubbleNotify = new bubbleNotify;
     }
     reloadContent(shape) {
         while (shape.structure.dom.firstChild){
