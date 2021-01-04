@@ -18,8 +18,6 @@ class activityManager {
 			return;
 		}
 		this.structure = new authstructure;
-
-		
 	}
 	changeActivity(activityId) {
 		console.log('changeActivity',activityId);

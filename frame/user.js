@@ -13,7 +13,8 @@ class user{
 			stream.activityManager.changeActivity();
 		}, 800);
 		document.cookie = JSON.stringify({'user':{'token': this.token ,'email': this.email }});
-	}
+		stream.cookie();
+		//}
 	static getInstance(token,email){
 		console.log(token,email);
 		if(!this.instance)
@@ -21,6 +22,9 @@ class user{
 			this.instance = new user(token,email);
 		}
 		return this.instance;
+	}
+	delete(){
+		delete(this);
 	}
 }
 

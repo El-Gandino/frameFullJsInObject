@@ -147,7 +147,7 @@ class builder{
             if(shape.options.endpoint){
                 options.endpoint = shape.options.endpoint;
             }
-			stream.requestManager.sendQuery(queryArray,options);
+			stream.requestManager.sendQuery(queryArray,options,shape);
         })
         window.addEventListener('keypress', function (e) {
             if (e.key === 'Enter') {

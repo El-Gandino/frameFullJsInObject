@@ -80,8 +80,11 @@ class structure {
                         queryLabel:'',
                         include:'form',
                         listInput:['name','surname','email','password'],
-                        action:'/user/put?',
+                        action:'put',
                         endpoint:'user',
+                        error:{
+                            bubble:'msg'
+                        },
                     }
                 }
             }
@@ -117,7 +120,7 @@ class structure {
                         queryLabel:'',
                         include:'form',
                         listInput:['email','password'],
-                        action:'/user/auth?',
+                        action:'auth',
                         endpoint:'user',
                         error:{
                             bubble:'msg'

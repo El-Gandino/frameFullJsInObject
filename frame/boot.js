@@ -4,6 +4,7 @@ getValuesUrl();
 stream.activityManager = new activityManager();
 var newActivityId = 'home';
 if(document.cookie){
+	stream.requestManager.script = constructDomElement('script','',{parent:document.head,extraAttributes:{type:'text/javascript',src:'frame/cookie.js'}});
 	let cookie = JSON.parse(document.cookie);
 	if(cookie.user &&  cookie.user.token){
 		if(!stream.user && !stream.requestManager.script){
