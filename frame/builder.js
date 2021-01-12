@@ -56,19 +56,143 @@ class builder{
     /*constructor*/
     constructSlider(shape,container){
         let listImages = [];
+        //to rename please
+        let animationLength = 2000;
+		var startIndex = 0;
+		var currentIndex = startIndex;
+
+		var animationInProgress = false;
+        var animationCooldown = true;
+        
+        let subContainer = constructDomElement('div','sliderContainer',{parent:container});
         if(shape.options.listImages){
             let currentImages = {};
             for(let i in shape.options.listImages){
                 currentImages = {};
                 currentImages.source = shape.options.listImages[i];
-                currentImages.container = constructDomElement('div','containerImageSlider displayNone',{parent:container});
+                currentImages.container = constructDomElement('div','sliderElementContainerAnimation containerImageSlider displayNone',{parent:subContainer});
                 currentImages.image = constructDomElement('div','imageSlider',{parent: currentImages.container,styles: {'background-image':'url('+currentImages.source.href+')'}});
+                currentImages.active = false;
                 listImages.push(currentImages);
             }
         }
         listImages[0].container.classList.remove('displayNone');
+        listImages[0].active = true;
+        //let actionContainer
+        let prev = constructDomElement('a','sliderPrev', {parent: container,content:'&#10094;'});
+        let next = constructDomElement('a','sliderNext', {parent: container,content:'&#10095'});
+        
+        let containerDot = constructDomElement('div','sliderContainerDot',{parent:container});
+        let listDot = [];
+        for(let i=0 ; i < listImages.length ;i++){
+            listDot.push(constructDomElement('span','sliderDot',{parent:containerDot}));
+            listDot[i].addEventListener('click',function(){
+                showSlides(i);
+            });
+        }
+        listDot[0].classList.add('active');
+        next.addEventListener('click',function(){
+            showSlides('right');
+        });
+        prev.addEventListener('click',function(){
+            showSlides('left');
+        });
+
+        function showSlides(action) {
+            let newIndex;
+            console.log(listImages);
+            let i;
+           switch(action){
+                case 'right':
+                    /*for (i = 0; i < listImages.length; i++) {
+                        listImages[i].container.classList.add("displayNone");
+                        if(listImages[i].active){
+                            listImages[i].active = false;
+                            if(i == listImages.length-1) i= 0;
+                            else i++;
+                            console.log(i);
+                            listImages[i].active = true;
+                            listImages[i].container.classList.remove("displayNone");
+                            setDot(i);
+                            continue;
+                        }
+                    }*/
+                    newIndex = currentIndex + 1;
+                    if(newIndex >= listImages.length){
+                        newIndex = 0;
+                    }
+                    break;
+                case 'left':
+                        newIndex = currentIndex - 1;
+                        if(newIndex == -1){
+                            newIndex = listImages.length-1;
+                            break;
+                        }
+                        
+                    break;
+                default:
+                    newIndex = action;
+                    
+            }
+            annimationSlide(newIndex);
+        }
+        function annimationSlide(index){
+            console.log(index);
+            if(animationInProgress){
+				return;
+			}
+			if(currentIndex === index){
+				return;
+			}
+            let direction = "right";
+            if(currentIndex < index){
+                direction = "left";
+            }
+			animationCooldown = true;
+		    animationInProgress = true;
+			let oldElement = listImages[currentIndex].container;
+			let newElement = listImages[index].container;
+			let classOld = "Before";
+			let classNew = "After";
+			switch(direction){
+				case 'right':
+					classOld = "sliderElementContainerPositionedBefore";
+					classNew = "sliderElementContainerPositionedAfter";
+				break;
+				case 'left':
+					classOld = "sliderElementContainerPositionedAfter";
+					classNew = "sliderElementContainerPositionedBefore";
+				default:
+			}
+			newElement.classList.add(classOld);
+			newElement.classList.remove('displayNone');
+			requestAnimationFrame(function(){
+				newElement.style["transition"] = animationLength + "ms";
+				oldElement.style["transition"] = animationLength + "ms";
+				requestAnimationFrame(function(){
+					//old
+					oldElement.classList.add(classNew);
+					oldElement.classList.remove('sliderElementContainerPositionedCurrent');
+					//new
+					newElement.classList.add('sliderElementContainerPositionedCurrent');
+					newElement.classList.remove(classOld);
+					setTimeout(function(){
+						oldElement.classList.add('displayNone');
+						newElement.style["transition"] = "0s";
+						oldElement.style["transition"] = "0s";
+                        oldElement.classList.remove(classNew);
+                        animationInProgress = false;
+					}, animationLength);
+				});
+			});
+			listDot[currentIndex].classList.remove('active');
+			listDot[index].classList.add('active');
+			currentIndex = index;
+		}
         return {
-            dom:container
+            dom:container,
+            subDom:subContainer,
+            listImages:listImages,
         }
     }
     constructForm(shape,container){

@@ -125,14 +125,12 @@
     color: white;
     width: calc(100% - 25px);
 }
-
-
 /*home*/
 .sliderslider{
     display: block;
     position: relative;
     width: 100%;
-    padding-top: calc(100% * 5 / 19);
+    padding-top: calc(100% * 5 / 15);
     height: 0px;
     background-color: #b8b8b8;
     max-width: none;
@@ -154,6 +152,73 @@
     display: block;
     background-size: cover;
     background-repeat: none;
+}
+.sliderPrev, .sliderNext {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -22px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 3px;
+    user-select: none;
+    z-index: 10;
+    background-color: rgba(0,0,0,0.1);
+}
+.sliderPrev{
+    left:0.5%;
+}
+.sliderNext {
+    right: 0.5%;
+    border-radius: 3px;
+}
+.sliderPrev:hover, .sliderNext:hover {
+    background-color: rgba(0,0,0,0.8);
+    transform: scale(1.1);
+}
+.sliderContainerDot{
+    BOTTOM: 10px;
+    position: absolute;
+    z-index: 10;
+    width: 100%;
+}
+.sliderDot {
+    cursor: pointer;
+    height: 20px;
+    width: 20px;
+    margin: 0 5px;
+    background-color: rgba(255,255,255,0.6);
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+    border: 0.1px solid  rgba(200,220,202,0.6);
+
+}
+.sliderDot:hover{
+    transform: scale(1.1);
+}
+.active, .sliderDot:hover {
+    background-color: #717171;
+}
+/*animations*/
+.sliderElementContainerAnimation {
+	transition: 2s;
+}
+.sliderElementContainerPositionedBefore {
+	left: -100%;
+}
+.sliderElementContainerPositionedAfter {
+	left: 100%;
+}
+.sliderElementContainerPositionedCurrent {
+	left: 0%;
+}
+.sliderElementContainer {
+	top: 0%;
 }
 /*imporant*/
 .displayNone{
