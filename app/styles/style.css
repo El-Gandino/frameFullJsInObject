@@ -125,6 +125,9 @@
     color: white;
     width: calc(100% - 25px);
 }
+.bubbleError{
+    border: red solid 1px;
+}
 /*home*/
 .sliderslider{
     display: block;

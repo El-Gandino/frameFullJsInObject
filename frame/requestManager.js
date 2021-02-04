@@ -32,7 +32,10 @@ class requestManager{
 			query[queryArray[i].label] = queryArray[i].value;
 		}
 		if(options.action == 'auth'){
+			console.log(query);
 			key = query['password'];
+			login = query['email'];
+			query['action'] = 'get';
 		}
 		if(stream.user){
 			login = stream.user.email;
@@ -71,15 +74,16 @@ class requestManager{
 				if(parameters.shape && parameters.shape.options.error){
 					let error = parameters.shape.options.error;
 					if(error.bubble == 'msg'){
-						stream.bubbleNotify.setBubble(dataSet.message,{liveTime:1000000000});
+						stream.bubbleNotify.setBubble(dataSet.message,{liveTime:6500,error:true});
 					}
 				}
 				console.warn(dataSet.message);
 				return;
 			}
 			if(response.parameters.enpoint && response.parameters.enpoint == 'user'){
+				Cache.add(response);
 				if(!stream.user && !this.script){
-					this.script = constructDomElement('script','',{parent:document.head,extraAttributes:{type:'text/javascript',src:'frame/user.js'}});
+					importScripts('frame/user.js');
 				}
 				setTimeout(function() {
 					stream.user = user.getInstance(dataSet.query.token,dataSet.query.email
@@ -94,9 +98,6 @@ class requestManager{
 					stream.adapter.rootConstruct(dataSet.query,currentshape)
 				}
 			}
-	
 		}
-
-	
 	}
 }

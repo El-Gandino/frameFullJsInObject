@@ -1,17 +1,19 @@
+//IndexedDB
+/*
 class cookie{
     constructor(cookieName,cookieValue,daysToExpire){
     
         var date = new Date();
         date.setTime(date.getTime()+(daysToExpire*24*60*60*1000));
         document.cookie = cookieName + "=" + cookieValue + "; expires=" + date.toGMTString();
-	}
-	static getInstance (cookieName,cookieValue,daysToExpire){
-		if(!this.instance)
-		{
-			this.instance = new cookie(cookieName,cookieValue,daysToExpire);
-		}
-		return this.instance;
-	}
+  	}
+    static getInstance (cookieName,cookieValue,daysToExpire){
+      if(!this.instance)
+      {
+        this.instance = new cookie(cookieName,cookieValue,daysToExpire);
+      }
+      return this.instance;
+    }
     accessCookie(cookieName)
     {
       var name = cookieName + "=";
@@ -38,5 +40,6 @@ class cookie{
         createCookie("testCookie", user, num);
         }
       }
-
+    }
 }
+*/

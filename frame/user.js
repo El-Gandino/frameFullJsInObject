@@ -12,9 +12,9 @@ class user{
 			stream.builder.structure = new authstructure();
 			stream.activityManager.changeActivity();
 		}, 800);
-		document.cookie = JSON.stringify({'user':{'token': this.token ,'email': this.email }});
-		stream.cookie();
-		//}
+		//document.cookie = JSON.stringify({'user':{'token': this.token ,'email': this.email }});
+		stream.cookie({'user':{'token': this.token ,'email': this.email }});
+	}
 	static getInstance(token,email){
 		console.log(token,email);
 		if(!this.instance)

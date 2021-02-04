@@ -57,13 +57,12 @@ class builder{
     constructSlider(shape,container){
         let listImages = [];
         //to rename please
-        let animationLength = 2000;
+        let animationDuration = 2000;
 		var startIndex = 0;
 		var currentIndex = startIndex;
 
 		var animationInProgress = false;
         var animationCooldown = true;
-        
         let subContainer = constructDomElement('div','sliderContainer',{parent:container});
         if(shape.options.listImages){
             let currentImages = {};
@@ -97,7 +96,15 @@ class builder{
         prev.addEventListener('click',function(){
             showSlides('left');
         });
-
+        //autoSlide();
+        function autoSlide(){
+			setTimeout(function(){
+                let sIndex =0;
+                showSlides('right');
+                autoSlide();
+            }, 8000);
+          
+		}
         function showSlides(action) {
             let newIndex;
             console.log(listImages);
@@ -167,8 +174,8 @@ class builder{
 			newElement.classList.add(classOld);
 			newElement.classList.remove('displayNone');
 			requestAnimationFrame(function(){
-				newElement.style["transition"] = animationLength + "ms";
-				oldElement.style["transition"] = animationLength + "ms";
+				newElement.style["transition"] = animationDuration + "ms";
+				oldElement.style["transition"] = animationDuration + "ms";
 				requestAnimationFrame(function(){
 					//old
 					oldElement.classList.add(classNew);
@@ -182,7 +189,7 @@ class builder{
 						oldElement.style["transition"] = "0s";
                         oldElement.classList.remove(classNew);
                         animationInProgress = false;
-					}, animationLength);
+					}, animationDuration);
 				});
 			});
 			listDot[currentIndex].classList.remove('active');
@@ -224,6 +231,9 @@ class builder{
 						break;
 					case'password':
 						input  = constructDomElement('input',classname + 'input input'+shape.options.type,{parent:container,extraAttributes:{type:'password'}});
+                        break;
+                    case'textarea':
+						input  = constructDomElement('textarea',classname + 'textarea  '+shape.options.type,{parent:container,extraAttributes:{type:'textarea '}});
 						break;
 					default:
 						console.warn('input : '+shape.options.type+'unkonw');
@@ -279,6 +289,7 @@ class builder{
                 let shapesActivty = stream.builder.shapeActivity[stream.activityManager.currentActivity].shapes;
                 let queryArray = [];
                 for(let i in shape.options.listInput){
+                    console.log(shape.options.listInput[i]);
                     let currentValue = shapesActivty[shape.options.listInput[i]].structure.getValue(shapesActivty[shape.options.listInput[i]]);
                     if(currentValue == false){
                         return false;

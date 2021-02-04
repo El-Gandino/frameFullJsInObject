@@ -60,7 +60,7 @@ var constructDomElement = function (type, className, options) {
 		* 	styles {styleName: style}
 		*}
 	*/
-	var parent, title, content, name, scope, extraAttributes = false, extraStyles = false, translateContent = true;
+	let parent, title, content, name, scope, extraAttributes = false, extraStyles = false, translateContent = true;
 	if (typeof (options) !== 'undefined') {
 		if (options.parent) {
 			parent = options.parent;
@@ -91,17 +91,9 @@ var constructDomElement = function (type, className, options) {
 	if (typeof (type) == 'undefined') {
 		var type = 'div';
 	}
+	console.log(type);
+	let elem = document.createElement(type);
 
-	var elem = document.createElement(type);
-	if (type == 'video') {
-		if (!options.src || !options.subType) {
-			return;
-		}
-		var elemSrc = document.createElement('source');
-		elemSrc.setAttribute('src', options.src);
-		elemSrc.setAttribute('type', options.subType);
-		elem.appendChild(elemSrc);
-	}
 	if (className) {
 		elem.setAttribute("class", className);
 	}

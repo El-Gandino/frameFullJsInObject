@@ -9,6 +9,7 @@ class structure {
                 home:{activity: 'home', text: 'home',  href: ' /home/'},
                 signup:{activity: 'signup', text: 'Inscription', href: '/signup/',classSuffix:'signup'},
                 login:{activity: 'login', text: 'Connexion', href: '/login/',classSuffix:'login'},
+                //ffcontact:{activity:'contact',text:'contact',href:'/contact/'}
             },
         },
     };
@@ -97,7 +98,7 @@ class structure {
                 email:{
                     type:'input',
                     options:{
-                        queryLabel:'login',
+                        queryLabel:'email',
                         include:'form',
                         type:'email',
                         placeholder:'email',
@@ -127,6 +128,66 @@ class structure {
                         },
                     }
                 }
+            }
+        },
+        contact:{
+            shapes:{
+                form:{
+                    type:'form',
+                },
+                name:{
+                    type:'input',
+                    options:{
+                        queryLabel:'name',
+                        include:'form',
+                        type:'text',
+                        placeholder:'Nom',
+                        notNull:true
+                    }
+                },
+                surname:{
+                    type:'input',
+                    options:{
+                        queryLabel:'surname',
+                        include:'form',
+                        type:'text',
+                        placeholder:'Prénom',
+                        notNull:true
+                    }
+                },
+                email:{
+                    type:'input',
+                    options:{
+                        queryLabel:'email',
+                        include:'form',
+                        type:'email',
+                        placeholder:'email',
+                        notNull:true
+                    }
+                },
+                content:{
+                    type:'input',
+                    options:{
+                        queryLabel:'content',
+                        include:'form',
+                        type:'textarea',
+                        placeholder:'content',
+                        notNull:true
+                    }
+                },
+                /*submit:{
+                    type:'submit',
+                    options:{
+                        queryLabel:'',
+                        include:'form',
+                        listInput:['name','surname','email','content'],
+                        action:'put',
+                        endpoint:'user',
+                        error:{
+                            bubble:'msg'
+                        },
+                    }
+                }*/
             }
         }
     }
