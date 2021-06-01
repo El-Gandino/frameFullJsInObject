@@ -1,8 +1,7 @@
 //IndexedDB
-/*
+
 class cookie{
     constructor(cookieName,cookieValue,daysToExpire){
-    
         var date = new Date();
         date.setTime(date.getTime()+(daysToExpire*24*60*60*1000));
         document.cookie = cookieName + "=" + cookieValue + "; expires=" + date.toGMTString();
@@ -40,6 +39,8 @@ class cookie{
         createCookie("testCookie", user, num);
         }
       }
+    }    
+		__destruct(){
+      document.cookie = "cookiename= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
     }
 }
-*/

@@ -91,7 +91,6 @@ var constructDomElement = function (type, className, options) {
 	if (typeof (type) == 'undefined') {
 		var type = 'div';
 	}
-	console.log(type);
 	let elem = document.createElement(type);
 
 	if (className) {

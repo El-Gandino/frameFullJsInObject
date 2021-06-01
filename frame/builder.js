@@ -217,6 +217,7 @@ class builder{
     constructInput(shape,container){
         let classname = '';
         let input;
+        let checkValue = function(){return true};
         if(shape.options){
             if(shape.options.className){
                 classname = shape.options.className;
@@ -225,9 +226,14 @@ class builder{
                 switch(shape.options.type){
                     case'text':
                         input  = constructDomElement('input',classname + 'input input'+shape.options.type,{parent:container,extraAttributes:{type:'text'}});
-						break;
+                        break;
 					case'email':
 						input  = constructDomElement('input',classname + 'input input'+shape.options.type,{parent:container,extraAttributes:{type:'email'}});
+                        checkValue = function(){
+                            let email = shape.structure.dom.value;
+                            let re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                            return re.test(email);
+                        }
 						break;
 					case'password':
 						input  = constructDomElement('input',classname + 'input input'+shape.options.type,{parent:container,extraAttributes:{type:'password'}});
@@ -253,6 +259,11 @@ class builder{
 					return false;
 				}
 			}
+            if(!checkValue()){
+                shape.structure.dom.classList.add('borderRed');
+                stream.bubbleNotify.setBubble('le format de '+shape.options.queryLabel+' est faut',{error:true});
+                return false;
+            }
 			return {
 				label:shape.options.queryLabel,
 				value:shape.structure.dom.value,
@@ -265,8 +276,12 @@ class builder{
 	}
 	constructSubmit(shape,container){
 		let buttonSubmit = constructDomElement('div','buttonsubmit',{parent:container});
-		buttonSubmit.addEventListener('click',function(){
-			console.log(stream);
+        console.log(shape.options);
+        if(shape.options.content){
+            buttonSubmit.innerText = shape.options.content;
+        }
+		let sedElement = function(){
+            console.log(stream);
 			let shapesActivty = stream.builder.shapeActivity[stream.activityManager.currentActivity].shapes;
 			let queryArray = [];
 			for(let i in shape.options.listInput){
@@ -282,26 +297,13 @@ class builder{
                 options.endpoint = shape.options.endpoint;
             }
 			stream.requestManager.sendQuery(queryArray,options,shape);
-        })
+        };
+        buttonSubmit.addEventListener('click',function(){
+			sedElement();
+        });
         window.addEventListener('keypress', function (e) {
             if (e.key === 'Enter') {
-                console.log(stream);
-                let shapesActivty = stream.builder.shapeActivity[stream.activityManager.currentActivity].shapes;
-                let queryArray = [];
-                for(let i in shape.options.listInput){
-                    console.log(shape.options.listInput[i]);
-                    let currentValue = shapesActivty[shape.options.listInput[i]].structure.getValue(shapesActivty[shape.options.listInput[i]]);
-                    if(currentValue == false){
-                        return false;
-                    }
-                    queryArray.push(currentValue);
-                }
-                let options = {action:shape.options.action};
-                console.log(shape.options.endpoint);
-                if(shape.options.endpoint){
-                    options.endpoint = shape.options.endpoint;
-                }
-                stream.requestManager.sendQuery(queryArray,options);
+                sedElement();
             }
         });
 		return{

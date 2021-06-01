@@ -31,13 +31,11 @@ class activityManager {
 		if(!this.topMenu){
 			this.topMenu = this.setTopMenu(activityId);
 		}
-		console.log(this);
 		this.checkActivityBody(activityId);
 		if (!this.activityBodyList[activityId].contruct) {
 			this.setupActivity(activityId);
 		}
 		this.displayActivity();
-		console.log('windowLoad');
 	}
 	setupActivity(activityId) {
 		if (!stream.builder) {
@@ -53,7 +51,6 @@ class activityManager {
 		if (!this.activityBodyList) {
 			this.activityBodyList = {};
 		}
-		console.log(this.activityBodyList)
 		if (!this.activityBodyList[activityId]) {
 			this.activityBodyList[activityId] = this.constructActivityBody(activityId);
 		}
@@ -110,7 +107,6 @@ class activityManager {
 		return topMenu;
 	}
 	displayActivity() {
-		console.log('displayActivity');
 		if(document.readyState === 'complete'){
 			document.body.appendChild(this.topMenu.container.dom);
 			document.body.appendChild(this.body);
@@ -119,7 +115,6 @@ class activityManager {
 				stream.activityManager.displayActivity();
 			}
 		}
-
 		console.log('displayActivirty',this.currentActivity);
 		for(let i in this.activityBodyList){
 			if(i == this.currentActivity){

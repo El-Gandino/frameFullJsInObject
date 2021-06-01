@@ -12,11 +12,13 @@ class user{
 			stream.builder.structure = new authstructure();
 			stream.activityManager.changeActivity();
 		}, 800);
-		//document.cookie = JSON.stringify({'user':{'token': this.token ,'email': this.email }});
-		stream.cookie({'user':{'token': this.token ,'email': this.email }});
+		console.log('test');
+		//if(!stream.cookie){
+			stream.cookie = new cookie('user',{'user':{'token': this.token ,'email': this.email }});
+		//}else stream.cookie.getInstance('user',{'user':{'token': this.token ,'email': this.email }});
 	}
 	static getInstance(token,email){
-		console.log(token,email);
+		console.log(token,email); 
 		if(!this.instance)
 		{
 			this.instance = new user(token,email);

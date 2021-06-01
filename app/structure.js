@@ -119,6 +119,7 @@ class structure {
                     type:'submit',
                     options:{
                         queryLabel:'',
+                        content:'login',
                         include:'form',
                         listInput:['email','password'],
                         action:'auth',

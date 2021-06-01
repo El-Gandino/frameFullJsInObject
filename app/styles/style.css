@@ -250,8 +250,20 @@
 }
 .buttonsubmit {
     width: 172px;
-    height: 20px;
+    height: 45px;
+    transition: 0.3s;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    font-size: 17px;
+    color: #fff;
+    border: 0px;
     background-color: blue;
+    margin: auto;
+    line-height: 45px;
+}
+.buttonsubmit:hover{
+    transform: scale(1.1);
 }
 .borderRed{
     border-color:red;

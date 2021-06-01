@@ -81,9 +81,13 @@ class requestManager{
 				return;
 			}
 			if(response.parameters.enpoint && response.parameters.enpoint == 'user'){
-				Cache.add(response);
+				//Cache.add(response);
+				
 				if(!stream.user && !this.script){
-					importScripts('frame/user.js');
+					//importScripts('frame/user.js');
+					let script = document.createElement("script");
+					script.src = 'frame/user.js';  // set its src to the provided URL
+					document.head.appendChild(script);
 				}
 				setTimeout(function() {
 					stream.user = user.getInstance(dataSet.query.token,dataSet.query.email

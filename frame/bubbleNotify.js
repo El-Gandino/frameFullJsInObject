@@ -3,6 +3,9 @@ class bubbleNotify{
 		this.container = constructDomElement('div','bubbleNotifyContainer displayNone');
 		this.content = constructDomElement('div','bubbleNotifyContent',{parent:this.container});
 		this.close = constructDomElement('div','bubbleNotifyClose',{parent:this.container});
+		this.close.addEventListener('click',function(){
+			stream.bubbleNotify.destructContent();
+		});
 	}
 	setBubble(content,options){
 		if(!this.container.parentElement){
@@ -10,7 +13,7 @@ class bubbleNotify{
 		} 
 		if(options){
             if(!options.liveTime || typeof(options.liveTime) != 'number'){
-                options.liveTime = 900;
+                options.liveTime = 1800;
 			}
 			if(options.error){
 				this.container.classList.add('bubbleError');
