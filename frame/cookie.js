@@ -3,42 +3,28 @@
 class cookie{
     constructor(cookieName,cookieValue,daysToExpire){
         var date = new Date();
-        date.setTime(date.getTime()+(daysToExpire*24*60*60*1000));
-        document.cookie = cookieName + "=" + cookieValue + "; expires=" + date.toGMTString();
-  	}
-    static getInstance (cookieName,cookieValue,daysToExpire){
-      if(!this.instance)
-      {
-        this.instance = new cookie(cookieName,cookieValue,daysToExpire);
-      }
-      return this.instance;
-    }
-    accessCookie(cookieName)
+        //date.setTime(date.getTime()+(daysToExpire*24*60*60*1000));
+        document.cookie = cookieName + "=" + cookieValue + ";expires=Thu, 18 Dec 2033 12:00:00 UTC";
+  	}   
+    static accessCookie(cookieName)
     {
-      var name = cookieName + "=";
-      var allCookieArray = document.cookie.split(';');
-      for(var i=0; i<allCookieArray.length; i++)
+      let name = cookieName + "=";
+      let allCookieArray = document.cookie.split(';');
+      for(let i=0; i<allCookieArray.length; i++)
       {
-        var temp = allCookieArray[i].trim();
+        let temp = allCookieArray[i].trim();
         if (temp.indexOf(name)==0)
         return temp.substring(name.length,temp.length);
          }
         return "";
     }
-    checkCookie()
+    static checkCookie()
     {
-      var user = accessCookie("testCookie");
-      if (user!="")
-        alert("Welcome Back " + user + "!!!");
-      else
-      {
-        user = prompt("Please enter your name");
-        num = prompt("How many days you want to store your name on your computer?");
-        if (user!="" && user!=null)
-        {
-        createCookie("testCookie", user, num);
-        }
+      let user = this.accessCookie("user");
+      if (user!=""){
+        return user;
       }
+      else return false
     }    
 		__destruct(){
       document.cookie = "cookiename= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";

@@ -17,7 +17,6 @@ class authstructure {
 				userTable:{
 					type:'div',
 					options:{
-
 						callBack:{
 							action:'/person/get',
 							query:{
