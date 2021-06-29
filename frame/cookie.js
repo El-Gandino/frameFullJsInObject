@@ -26,7 +26,7 @@ class cookie{
       }
       else return false
     }    
-		__destruct(){
-      document.cookie = "cookiename= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
+		__destruct(name){
+      document.cookie = name+ "=; expires = Thu, 01 Jan 1970 00:00:00 GMT"
     }
 }

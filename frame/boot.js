@@ -10,26 +10,41 @@ if(document.cookie){
 		stream.cookie = cookie.getInstance('user');
 	}
 	*/
-	let checkUser = cookie.checkCookie();
-	if(checkUser ){
-		let user = JSON.parse(checkUser);
+	let getCookie = cookie.checkCookie();
+	if(getCookie ){
+		let checkUser = JSON.parse(getCookie).user;
+		console.log(checkUser);
 		let aut = [
 				{
 					"label": "email",
-					"value": user.email
+					"value": checkUser.email
 				},
 				{
 					"label": "password",
-					"value": user.token
+					"value": checkUser.token
+				},
+				{
+					"label": "token",
+					"value":true
 				}
 			];
 
 		let options = {action: "auth",endpoint:"user"};
-		stream.requestManager.sendQuery(aut,options);
-		console.log(checkUser,);
-		//stream.requestManager.script = constructDomElement('script','',{parent:document.head,extraAttributes:{type:'text/javascript',src:'frame/user.js'}});
+		
+		if(!stream.user && !this.script){
+			//importScripts('frame/user.js');
+			let script = document.createElement("script");
+			script.type = "text/javascript";
+			script.src = 'frame/user.js';  // set its src to the provided URL
+			
+			document.head.appendChild(script);
+		}
+		setTimeout(function() {
+			stream.user = user.getInstance(checkUser.token, checkUser.email
+				);
+		}, 100);
+		//stream.requestManager.sendQuery(aut,options);
 	}
-	console.log();
 	/*
 	let cookie = JSON.parse(document.cookie);
 	if(cookie.user &&  cookie.user.token){

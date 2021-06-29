@@ -7,8 +7,22 @@ class authstructure {
             },
             links: {
                 home:{activity: 'home', text: 'home',  href: ' /home/'},
-				
+				logout:{activity: 'logout', text: 'logout',  href: ' /logout/',action: function()
+                {
+
+                    stream.cookie.__destruct('user');
+                    delete(stream.activityManager.structure);
+                    delete(stream.builder.structure);
+                    delete(stream.builder.shapeActivity);
+		            setTimeout(function() {
+                        stream.activityManager.structure = new structure();
+                        stream.builder.structure = new structure();
+                        stream.activityManager.clearBody();
+                        stream.activityManager.changeActivity();
+                    },100);
+                }, 
             },
+        },
         },
     };
     activity = {
@@ -80,6 +94,7 @@ class authstructure {
 
             }
         },
+        logout:{}
     }
     getActivityStructure(activityId){
         return this.activity[activityId];

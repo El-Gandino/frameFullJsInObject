@@ -1,0 +1,15 @@
+{
+    "short_name":"JSP",
+    "name":"JSP Malley",
+    "start_url":"/",
+    "display":"browser",
+    "icons":[
+        {
+            "src":"http://www.test/app/img/logos/logo_192.jpg",
+            "type":"image/jpg",
+            "sizes":"1097x1097"
+        }
+    ],
+    "prefer_related_applications":true,
+    "related_applications":[{"platform":"play","id":"ch.alpsoft.qoqa.ui"}]
+}

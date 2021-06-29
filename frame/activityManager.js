@@ -1,7 +1,7 @@
 "use strict"
 class activityManager {
 	/*
-	* creat singleton
+	* singleton
 	*/
 	constructor(activityId = 'home') {
 		if (typeof (this.structure) == 'undefined') {
@@ -18,6 +18,7 @@ class activityManager {
 			return;
 		}
 		this.structure = new authstructure;
+		console.log('setStructure',this.structure);
 	}
 	changeActivity(activityId) {
 		console.log('changeActivity',activityId);
@@ -25,6 +26,7 @@ class activityManager {
 			activityId = 'home';
 		}
 		this.currentActivity = activityId;
+
 		if (typeof (this.structure) == 'undefined') {
 			this.setStructure();
 		}
@@ -71,6 +73,7 @@ class activityManager {
 				rightContainer: {}
 			},
 		};
+		/* to opti */
 		topMenu.container.dom = constructDomElement('div', 'topMenu topMenuFull');
 		topMenu.container.leftContainer.dom = constructDomElement('div', 'topMenuLeft', { parent: topMenu.container.dom });
 		topMenu.container.rightContainer.dom = constructDomElement('div', 'topMenuRight', { parent: topMenu.container.dom });
@@ -96,9 +99,18 @@ class activityManager {
 				}
 			}
 		}
-		for (var i in this.structure.interface.topMenu.links) {
-			var link = constructActivityLink({ text: this.structure.interface.topMenu.links[i].text, activity: this.structure.interface.topMenu.links[i].activity }, rightContainer, { extraRender: resetTopMenu }
-			);
+		for (let i in this.structure.interface.topMenu.links) {
+			let link;
+			if(this.structure.interface.topMenu.links[i].action){
+				console.log(true);
+				link = constructDomElement('a', 'activityLink ', {content:this.structure.interface.topMenu.links[i].text, parent: rightContainer ,href:"#"});
+				link.addEventListener('click',function(){
+					stream.activityManager.structure.interface.topMenu.links[this.text].action();
+				});
+					
+			}else{
+				link = constructActivityLink({ text: this.structure.interface.topMenu.links[i].text, activity: this.structure.interface.topMenu.links[i].activity }, rightContainer, { extraRender: resetTopMenu });
+			}
 			if (this.currentActivity == this.structure.interface.topMenu.links[i].activity) {
 				link.classList.add('linkTopMenuSelected');
 			}
