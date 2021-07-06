@@ -80,9 +80,8 @@ class requestManager{
 				console.warn(dataSet.message);
 				return;
 			}
-			if(response.parameters.enpoint && response.parameters.enpoint == 'user'){
+			if(response.parameters.enpoint && response.parameters.enpoint == 'user' && response.parameters.action == 'auth'){
 				//Cache.add(response);
-				
 				if(!stream.user && !this.script){
 					//importScripts('frame/user.js');
 					let script = document.createElement("script");
@@ -90,8 +89,7 @@ class requestManager{
 					document.head.appendChild(script);
 				}
 				setTimeout(function() {
-					stream.user = user.getInstance(dataSet.query.token,dataSet.query.email
-						);
+					stream.user = user.getInstance(dataSet.query);
 					}, 200);
 			
 				return;
@@ -99,7 +97,12 @@ class requestManager{
 			if(response.parameters.shape){
 				let currentshape = response.parameters.shape;
 				if(currentshape.options.callBack.responsetrue){
-					stream.adapter.rootConstruct(dataSet.query,currentshape)
+					stream.adapter.rootConstruct(currentshape,dataSet.query); 
+					return;
+				}
+				if(currentshape.options.callBack.responseFunction){
+					currentshape.options.callBack.responseFunction(currentshape.name,dataSet.query);
+					return;
 				}
 			}
 		}

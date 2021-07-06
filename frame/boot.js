@@ -5,15 +5,9 @@ stream.activityManager = new activityManager();
 stream.netWorker = new Worker('frame/netWorker.js');
 var newActivityId = 'home';
 if(document.cookie){
-	/*
-	if(!stream.cookie){
-		stream.cookie = cookie.getInstance('user');
-	}
-	*/
 	let getCookie = cookie.checkCookie();
 	if(getCookie ){
 		let checkUser = JSON.parse(getCookie).user;
-		console.log(checkUser);
 		let aut = [
 				{
 					"label": "email",
@@ -28,7 +22,6 @@ if(document.cookie){
 					"value":true
 				}
 			];
-
 		let options = {action: "auth",endpoint:"user"};
 		
 		if(!stream.user && !this.script){
@@ -39,9 +32,9 @@ if(document.cookie){
 			
 			document.head.appendChild(script);
 		}
+		
 		setTimeout(function() {
-			stream.user = user.getInstance(checkUser.token, checkUser.email
-				);
+			stream.user = user.getInstance(checkUser);
 		}, 100);
 		//stream.requestManager.sendQuery(aut,options);
 	}

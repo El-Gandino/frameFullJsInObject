@@ -17,7 +17,6 @@ class builder{
         if(!this.shapeActivity[activityId]){
             this.shapeActivity[activityId] = this.structure.getActivityStructure(activityId);
         }
-        console.log(this.shapeActivity);
         for(let i in this.shapeActivity[activityId].shapes){
             if(!this.shapeActivity[activityId].shapes[i].name){
                 this.shapeActivity[activityId].shapes[i].name = i;
@@ -208,8 +207,6 @@ class builder{
             className += ' '.shape.options.className;
         }
         let form = constructDomElement('form',className,{parent:container,extraAttributes:{action:'javascript:void(0);'}})
-
-        console.log(form,container);
         return {
             dom:form
         }
@@ -241,6 +238,17 @@ class builder{
                     case'textarea':
 						input  = constructDomElement('textarea',classname + 'textarea  '+shape.options.type,{parent:container,extraAttributes:{type:'textarea '}});
 						break;
+                    case 'select' :
+                        input  = constructDomElement('select',classname + 'select input inputselect'+shape.options.type,{parent:container,extraAttributes:{type:'select '}});
+                        let listInput = stream.objectLoaded[shape.options.values];
+                        let option = [];
+						for(let i in listInput){
+                            option[i] =  constructDomElement('option',classname + 'option ',{parent:input,content:listInput[i].rank,extraAttributes:{type:'option',value:listInput[i].id}});
+                            if(i == shape.options.defaultValue){
+                                option[i].selected = true;
+                            }
+                        }
+                        break;
 					default:
 						console.warn('input : '+shape.options.type+'unkonw');
                 
@@ -269,6 +277,12 @@ class builder{
 				value:shape.structure.dom.value,
 			}
 		}
+        if(shape.options.parentObject){
+            let currentShape =this.shapeActivity[stream.activityManager.currentActivity].shapes;
+            if(currentShape){
+                currentShape[shape.options.parentObject].structure.structure.content[shape.options.queryLabel] = {dom:input,shape:shape};
+            }
+        }
         return{
 			dom:input,
 			getValue:getValue,
@@ -280,32 +294,64 @@ class builder{
         if(shape.options.content){
             buttonSubmit.innerText = shape.options.content;
         }
-		let sedElement = function(){
-            console.log(stream);
-			let shapesActivty = stream.builder.shapeActivity[stream.activityManager.currentActivity].shapes;
+		let sendElement = function(){
+            let shapesActivty = stream.builder.shapeActivity[stream.activityManager.currentActivity].shapes;
 			let queryArray = [];
 			for(let i in shape.options.listInput){
-				let currentValue = shapesActivty[shape.options.listInput[i]].structure.getValue(shapesActivty[shape.options.listInput[i]]);
-				if(currentValue == false){
-					return false;
-				}
-				queryArray.push(currentValue);
+                /*type of */
+                let currentValue;
+               switch(typeof(shape.options.listInput[i])){
+                    case 'object':
+                        let currentInput = shapesActivty[shape.options.listInput[i].input];
+                        currentValue = currentInput.structure.getValue(currentInput);
+                        if(currentValue == false && !shape.options.listInput[i].options){
+                            return false;
+                        }
+                        queryArray.push(currentValue);
+                        break;
+                    case 'string':
+                        currentValue = shapesActivty[shape.options.listInput[i]].structure.getValue(shapesActivty[shape.options.listInput[i]]);
+                        if(currentValue == false){
+                            return false;
+                        }
+                        queryArray.push(currentValue);
+                        break;
+                    default:
+                        return false;
+                }
             }
             let options = {action:shape.options.action};
-            console.log(shape.options.endpoint);
             if(shape.options.endpoint){
                 options.endpoint = shape.options.endpoint;
             }
+            if(shape.options.getAction){
+                switch(shape.options.getAction){
+                    case 'byParent':
+                        options.action = shapesActivty[shape.options.parentObject].structure.structure.statement.currentStatement;
+                        break;
+                }
+                if(options.action == 'update'){
+                    queryArray.push( {'label':'parent','value':shapesActivty[shape.options.parentObject].structure.structure.element.token});
+                }
+                console.warn(shapesActivty[shape.options.parentObject] )
+            }
 			stream.requestManager.sendQuery(queryArray,options,shape);
         };
+
         buttonSubmit.addEventListener('click',function(){
-			sedElement();
+			sendElement();
         });
         window.addEventListener('keypress', function (e) {
             if (e.key === 'Enter') {
-                sedElement();
+                sendElement();
             }
         });
+        if(shape.options.parentObject){
+            let currentShape =this.shapeActivity[stream.activityManager.currentActivity].shapes;
+            if(currentShape){
+                currentShape[shape.options.parentObject].structure.structure.content[shape.options.queryLabel] = buttonSubmit;
+            }
+        }
 		return{
 			dom:container,
 			button:buttonSubmit
@@ -315,9 +361,9 @@ class builder{
     constructDiv(shape,container){
         if(shape.options){
             if(shape.options.callBack){
-                let options = {action:shape.options.callBack.action};
+                let options = {action:shape.options.callBack.action,endpoint:shape.options.callBack.endpoint};
                 let query = shape.options.callBack.query;
-                stream.requestManager.sendQuery(query,options,shape)
+                stream.requestManager.sendQuery(query,options,shape);
             }
         }
         return{
@@ -336,19 +382,32 @@ class builder{
 		let title = constructDomElement('div','windowTitle ',{parent:top});
 		let close =  constructDomElement('div','windowClose ',{parent:top});
 		let body =constructDomElement('div','windowBody ',{parent:containerWindow});
+        let listeStatement = options.listeStatement;
 		if(options){
 			if(options.title){
 				title.innerText = options.title;
 			}
 		}
-		let closeFunc = function (){
+		let closeFunc = function (test){
 			container.classList.add('displayNone');
+            for(let i in shape.structure.structure.content){
+                if(typeof(shape.structure.structure.content[i].dom)=='object'){
+                    shape.structure.structure.content[i].dom.classList.remove('displayNone');
+                    shape.structure.structure.content[i].dom.value = '';
+                    if(typeof(shape.structure.structure.content[i].shape.options.defaultValue)!='undefined'){
+                        shape.structure.structure.content[i].dom.value = shape.structure.structure.content[i].shape.options.defaultValue+1;
+                    }
+                }
+            }
+            if(typeof(shape.structure.structure.statement)!='undefined'){
+                shape.structure.structure.statement.currentStatement =  shape.structure.structure.statement.listeStatement[0];
+            }
 		}
 		let showFunc = function (){
 			container.classList.remove('displayNone');
 		}
 		close.addEventListener('click',function(){
-			closeFunc();
+			closeFunc(this);
 		});
 		return{
 			dom:body,
@@ -356,7 +415,9 @@ class builder{
 				window:containerWindow,
 				topWindow:top,
 				parent:container, 
-				body:body
+				body:body,
+                content:{},
+                statement:{currentStatement:listeStatement[0],listeStatement:listeStatement},
 			},
 			event:{
 				show:showFunc,

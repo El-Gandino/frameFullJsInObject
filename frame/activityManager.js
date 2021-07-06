@@ -33,6 +33,41 @@ class activityManager {
 		if(!this.topMenu){
 			this.topMenu = this.setTopMenu(activityId);
 		}
+		if(typeof(this.structure.activity[activityId]) != 'undefined'){
+			if(this.structure.activity[activityId].options){
+				let options = this.structure.activity[activityId].options;
+				for(let i in options){
+					switch(i){
+						case 'required':
+							for(let a in options[i]){
+								console.log(options[i][a]);
+								if(!stream.objectLoaded[a]){
+								if(options[i][a].methode == 'getApi'){
+									let queryArray = {
+										//parent:stream.user.token,
+										endpoint:a,
+									};
+									let options = {action:'get',endpoint:a};
+									let shape ={
+										name:'rank',
+										options:{
+											callBack:{
+												responseFunction:function(name,query){
+													stream.objectLoaded[name]=query;
+												}
+											}
+										}
+									}
+									stream.requestManager.sendQuery(queryArray,options,shape);
+								}
+							}
+							}
+							break;
+					}
+				}
+				
+			}
+		}
 		this.checkActivityBody(activityId);
 		if (!this.activityBodyList[activityId].contruct) {
 			this.setupActivity(activityId);

@@ -193,7 +193,6 @@ class structure {
         }
     }
     getActivityStructure(activityId){
-        console.log(this.activity[activityId]);
         return this.activity[activityId];
 
     }

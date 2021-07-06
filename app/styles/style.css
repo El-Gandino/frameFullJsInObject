@@ -234,6 +234,7 @@
     margin-top: 30px;
     text-align: center;
 }
+.inputrank,.inputuserLevel,
 .inputname,.inputsurname,.inputemail,.inputpassword,.submitsubmit{
     margin-bottom: 20px;
     width: 100%;
@@ -348,24 +349,44 @@
     padding-bottom: 20px;
 }
 /*delet*/
-.deletContainer{
-    display: inline-block;
-    font-weight: bold;
-    color: red;
-    vertical-align: middle;
 
-}
 /*user*/
+.callWindowwindowCreat{
+    
+    margin: 20px;
+    margin-left: 35px;;
+    text-align: left;
+}
+.buttonCallBackWindow {
+    width: 172px;
+    height: 45px;
+    transition: 0.3s;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    font-size: 17px;
+    color: #fff;
+    border: 0px;
+    background-color: blue;
+    margin: auto;
+    line-height: 45px;
+    float: left;
+}
+.buttonCallBackWindow:hover{
+    transform: scale(1.1);
+}
 .lineUser {
     padding: 15px;
-    text-align: left;
     display: inline-block;
-    max-width: 	50%;
+    width: 100%;
+    text-align: center;
 }
 .textUser {
     display: inline-block;
     padding-right: 15px;
     vertical-align: middle;
+    width: 15%;
+    text-transform: capitalize;
 }
 .logoUser {
     height: 25px;
@@ -375,4 +396,14 @@
     border-radius: 50%;
     margin-right: 10px;
     background-image: url('../../app/img/placeholder/person.svg');
+  
+}
+.updateContainer,
+.deletContainer{
+    display: inline-block;
+    font-weight: bold;
+    vertical-align: middle;
+}
+.deletContainer{
+color: red;
 }
